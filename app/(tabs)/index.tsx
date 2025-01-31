@@ -6,6 +6,7 @@ import { ThemedView } from "@/components/ThemedView";
 import Header from "@/components/Header";
 import FilterContainer from "@/components/containers/FilterContainer";
 import { FilterComponentProps } from "@/components/FilterComponent";
+import IconContainer from "@/components/IconContainer";
 
 export default function HomeScreen() {
   const filterData: FilterComponentProps[] = [
@@ -47,10 +48,35 @@ export default function HomeScreen() {
 
         {/* Filter */}
 
-        <ThemedView style={{ marginTop: "10%" }}>
+        <ThemedView style={{ marginTop: "20%" }}>
           <FilterContainer data={filterData} />
         </ThemedView>
 
+        {/* Icon Containers */}
+
+        <ThemedView
+          style={{
+            marginTop: "15%",
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-between",
+          }}
+        >
+          <IconContainer
+            image="arrow-up-right"
+            content="₹ 70,000"
+            tint="#DDDDDD"
+            title="Income"
+            iconColor="black"
+          />
+          <IconContainer
+            image="pie-chart"
+            content="Trends"
+            tint="#DDDDDD"
+            title="Explore"
+            iconColor="black"
+          />
+        </ThemedView>
       </SafeAreaView>
     </ParallaxScrollView>
   );
