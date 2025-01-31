@@ -3,12 +3,18 @@ import React from "react";
 import { ThemedText } from "./ThemedText";
 
 export type FilterComponentProps = {
+  id: number;
   text: string;
-  isActive?: boolean;
-  onPress?: () => void;
 };
 
-const FilterComponent = (props: FilterComponentProps) => {
+export type FilterComponentActiveProps = {
+  active: number;
+  onPress: (actievIdx: number) => void;
+};
+
+const FilterComponent = (
+  props: FilterComponentProps & FilterComponentActiveProps
+) => {
   const filterStyle = StyleSheet.create({
     default: {
       alignSelf: "flex-start",
@@ -21,12 +27,12 @@ const FilterComponent = (props: FilterComponentProps) => {
       fontSize: 14,
       fontWeight: "500",
     },
-});
+  });
 
-const activeFilterStyle = StyleSheet.create({
+  const activeFilterStyle = StyleSheet.create({
     active: {
-        ...filterStyle.default,
-        borderColor: "#7E44E0",
+      ...filterStyle.default,
+      borderColor: "#7E44E0",
       backgroundColor: "#7E44E0",
       color: "#C8C8C8",
     },
@@ -34,8 +40,12 @@ const activeFilterStyle = StyleSheet.create({
 
   return (
     <ThemedText
-      style={props.isActive ? activeFilterStyle.active : filterStyle.default}
-      onPress={props.onPress}
+      style={
+        props.active === props.id
+          ? activeFilterStyle.active
+          : filterStyle.default
+      }
+      onPress={() => props.onPress(props.id)}
     >
       {props.text}
     </ThemedText>
