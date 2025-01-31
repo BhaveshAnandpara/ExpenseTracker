@@ -7,6 +7,8 @@ import Header from "@/components/Header";
 import FilterContainer from "@/components/containers/FilterContainer";
 import { FilterComponentProps } from "@/components/FilterComponent";
 import IconContainer from "@/components/IconContainer";
+import TransactionContainer from "@/components/containers/TransactionContainer";
+import { TransactionCardProps } from "@/components/TransactionCard";
 
 export default function HomeScreen() {
   const filterData: FilterComponentProps[] = [
@@ -15,6 +17,29 @@ export default function HomeScreen() {
     { text: "7 Days" },
     { text: "15 Days" },
     { text: "30 Days" },
+  ];
+
+  const transactionData: TransactionCardProps[] = [
+    {
+      iconColor: "#3A6763",
+      image: "shopping-bag",
+      tint: "#6E9995",
+      title: "New Bharat Supe",
+      tags: ["groceries"],
+      dateTime: "Today",
+      transactionType: "arrow-up-right",
+      amount: "160",
+    },
+    {
+      iconColor: "#3A6763",
+      image: "shopping-bag",
+      tint: "#6E9995",
+      title: "New Bharat Supe",
+      tags: ["groceries"],
+      dateTime: "Today",
+      transactionType: "arrow-up-right",
+      amount: "160",
+    },
   ];
 
   return (
@@ -76,6 +101,16 @@ export default function HomeScreen() {
             title="Explore"
             iconColor="black"
           />
+        </ThemedView>
+
+        {/* Recent Transactions */}
+
+        <ThemedView style={{ marginTop: "20%" }}>
+          <ThemedText style={{ color: "#BEA8E2", fontWeight: 500 }}>
+            Recent Transactions
+          </ThemedText>
+
+          <TransactionContainer data={transactionData} />
         </ThemedView>
       </SafeAreaView>
     </ParallaxScrollView>

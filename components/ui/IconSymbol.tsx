@@ -5,7 +5,7 @@ import React from 'react';
 import { OpaqueColorValue, StyleProp, ViewStyle } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 
-type FeatherIconName = "home" | "grid" | "tag" | "shopping-bag" | "crosshair" ;
+export type FeatherIconName = "home" | "grid" | "tag" | "shopping-bag" | "crosshair" ;
 
 export function IconSymbol({
   name,
