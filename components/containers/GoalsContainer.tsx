@@ -9,8 +9,8 @@ type GoalsContainerProps = {
 const GoalsContainer = (props: GoalsContainerProps) => {
   return (
     <View style={{ marginTop : "4%" }} >
-      {props.data.map((goal) => (
-        <GoalCard {...goal} />
+      {props.data.map((goal,idx) => (
+        <GoalCard {...goal} key={idx} />
       ))}
     </View>
   );

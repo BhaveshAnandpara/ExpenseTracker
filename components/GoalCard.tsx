@@ -13,6 +13,7 @@ export type GoalCardProps = {
   iconColor: string;
   tint: string;
   progress: number;
+  idx?: number;
 };
 
 const GoalCard = (props: GoalCardProps) => {
@@ -50,7 +51,7 @@ const GoalCard = (props: GoalCardProps) => {
   })
 
   return (
-    <View style={containerStyle.container} key={props.goalName} >
+    <View style={containerStyle.container} key={props.idx} >
 
       <View style={iconStyle.container}>
         <Feather color={props.iconColor} size={24} name={props.iconName} />

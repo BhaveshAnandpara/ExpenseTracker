@@ -60,7 +60,7 @@ export default function HomeScreen() {
       {/* Header */}
 
       <ThemedView style={{ padding: 20 }}>
-        <Header title="Your Goals" iconName="x" />
+        <Header title="Your Goals" iconName="settings" />
       </ThemedView>
 
       {/* Set new goals button */}

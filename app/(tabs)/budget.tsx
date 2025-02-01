@@ -9,7 +9,7 @@ import { GoalCardProps } from "@/components/GoalCard";
 import Header from "@/components/Header";
 
 export default function HomeScreen() {
-  const setNewGoal = () => {
+  const setNewBudget = () => {
     console.log("new goal");
   };
 
@@ -52,13 +52,13 @@ export default function HomeScreen() {
       {/* Header */}
 
       <ThemedView style={{ padding: 20 }}>
-        <Header title="Your Budget" iconName="x" />
+        <Header title="Your Budget" iconName="settings" />
       </ThemedView>
 
       {/* Set new budget button */}
 
       <ThemedView>
-        <ThemedText onPress={setNewGoal} style={buttonStyle.primary}>
+        <ThemedText onPress={setNewBudget} style={buttonStyle.primary}>
           Set New Budget
         </ThemedText>
       </ThemedView>
@@ -66,6 +66,7 @@ export default function HomeScreen() {
       {/* List of Budget cards */}
 
       <GoalsContainer data={budgetData} />
+      
     </ParallaxScrollView>
   );
 }
