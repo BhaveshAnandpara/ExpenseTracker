@@ -30,13 +30,13 @@ const TransactionCard = (props: TransactionCardProps) => {
     container: {
       display: "flex",
       flexDirection: "row",
-      alignItems : 'center',
+      alignItems: "center",
       justifyContent: "space-between",
-      height : 90,
-      borderBottomWidth : 1,
-      borderBottomColor : '#545454',
-      paddingVertical : 5,
-    //   backgroundColor : 'red'
+      height: 90,
+      borderBottomWidth: 1,
+      borderBottomColor: "#545454",
+      paddingVertical: 5,
+      //   backgroundColor : 'red'
     },
     infoContainer: {
       display: "flex",
@@ -44,16 +44,16 @@ const TransactionCard = (props: TransactionCardProps) => {
       justifyContent: "flex-start",
       alignItems: "center",
     },
-    amountContainer:{
-        display : 'flex',
-        alignItems : 'flex-end',
+    amountContainer: {
+      display: "flex",
+      alignItems: "flex-end",
     },
     dateContainer: {
       display: "flex",
       flexDirection: "row",
       justifyContent: "flex-start",
       alignItems: "center",
-      marginBottom : 4
+      marginBottom: 4,
     },
   });
 
@@ -71,21 +71,23 @@ const TransactionCard = (props: TransactionCardProps) => {
             {props.title}
           </ThemedText>
           <View>
-            {props.tags.map((tag) => (
-              <ThemedText style={{ fontWeight: 400, fontSize: 14 }}>
+            {props.tags.map((tag, idx) => (
+              <ThemedText key={idx} style={{ fontWeight: 400, fontSize: 14 }}>
                 #{tag}
               </ThemedText>
             ))}
           </View>
         </View>
       </View>
-      <View style={containerStyle.amountContainer} >
+      <View style={containerStyle.amountContainer}>
         <View style={containerStyle.dateContainer}>
-          <ThemedText style={{ marginRight : 4 }} >{props.dateTime}</ThemedText>
+          <ThemedText style={{ marginRight: 4 }}>{props.dateTime}</ThemedText>
           <Feather color={"#808080"} size={24} name={props.transactionType} />
         </View>
         <View>
-          <ThemedText style={{ fontSize : 18 , fontWeight : 600 , color : "#ddd" }} >₹{props.amount}</ThemedText>
+          <ThemedText style={{ fontSize: 18, fontWeight: 600, color: "#ddd" }}>
+            ₹{props.amount}
+          </ThemedText>
         </View>
       </View>
     </View>
