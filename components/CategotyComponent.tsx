@@ -9,6 +9,7 @@ export type CategotyComponentProps = {
   iconColor: string;
   tint: string;
   categoryName: string;
+  key?: number;
 };
 
 const CategotyComponent = (props: CategotyComponentProps) => {
@@ -18,26 +19,26 @@ const CategotyComponent = (props: CategotyComponentProps) => {
       alignSelf: "center",
       padding: 16,
       borderRadius: 10,
-      marginBottom : 4
+      marginBottom: 4,
     },
   });
 
   const containerStyle = StyleSheet.create({
     container: {
-        display : 'flex',
-        alignItems : 'center',
-        justifyContent : 'center',
-        width : '25%',
-        marginVertical : 16
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      width: "25%",
+      marginVertical: 16,
     },
   });
 
   return (
-    <View style={containerStyle.container} >
+    <View style={containerStyle.container} key={props.key}>
       <View style={iconStyle.container}>
         <Feather color={props.iconColor} size={24} name={props.iconName} />
       </View>
-      <ThemedText style={{ fontWeight : 600 }} >{props.categoryName}</ThemedText>
+      <ThemedText style={{ fontWeight: 600 }}>{props.categoryName}</ThemedText>
     </View>
   );
 };
