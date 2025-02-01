@@ -9,8 +9,8 @@ type TransactionContainerProps = {
 const TransactionContainer = (props: TransactionContainerProps) => {
   return (
     <View>
-      {props.data.map((card) => (
-        <TouchableOpacity>
+      {props.data.map((card , idx) => (
+        <TouchableOpacity key={idx} >
             <TransactionCard {...card} />
         </TouchableOpacity>
       ))}

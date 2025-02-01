@@ -50,7 +50,7 @@ const GoalCard = (props: GoalCardProps) => {
   })
 
   return (
-    <View style={containerStyle.container} >
+    <View style={containerStyle.container} key={props.goalName} >
 
       <View style={iconStyle.container}>
         <Feather color={props.iconColor} size={24} name={props.iconName} />
@@ -62,7 +62,7 @@ const GoalCard = (props: GoalCardProps) => {
           <ThemedText style={{ fontSize : 18 , fontWeight : 600, alignSelf : 'center' }} >₹{props.amount}</ThemedText>
         </View>
         <View style={{ marginTop : 16 }} >
-          <ProgressBar style={ { backgroundColor : '#424242' , height : 8 , borderRadius : 8 } }  progress={0.5} color={props.tint} />
+          <ProgressBar style={ { backgroundColor : '#424242' , height : 8 , borderRadius : 8 } }  progress={props.progress} color={props.tint} />
           <ThemedText style={{fontWeight : 400 , color : "#797979" , marginTop : 4}} > {props.message}</ThemedText>
         </View>
       </View>

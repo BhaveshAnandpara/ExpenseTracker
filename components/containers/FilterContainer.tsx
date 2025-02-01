@@ -24,7 +24,7 @@ const FilterContainer = (props: FilterContainerProps) => {
   return (
     <View style={filterConStyle.container}>
       {data.map((data, idx) => (
-        <TouchableOpacity>
+        <TouchableOpacity key={idx}>
           <FilterComponent
             onPress={onPress}
             id={data.id}
