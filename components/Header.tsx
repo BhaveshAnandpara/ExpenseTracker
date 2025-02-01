@@ -10,13 +10,15 @@ const headerStyle = StyleSheet.create({
         display : 'flex',
         flexDirection : 'row',
         alignItems : 'center',
-        justifyContent : 'space-between'
+        justifyContent : 'space-between',
+        marginTop : 8
     }
 })
 
 const titleStyle = StyleSheet.create({
     title:{
         color : '#808080',
+        fontWeight : 600
     }
 })
 
