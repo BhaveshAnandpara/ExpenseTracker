@@ -40,6 +40,10 @@ export default function RootLayout() {
           name="transactionDetails"
           options={{ title: "Check Transaction" }}
         />
+        <Stack.Screen
+          name="createTransaction"
+          options={{ title: "Create Transaction" }}
+        />
       </Stack>
       <StatusBar style="auto" />
     </ThemeProvider>

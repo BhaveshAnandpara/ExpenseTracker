@@ -5,9 +5,10 @@ import { BankName, getBankLogo, getBankTint } from "@/constants/Banks";
 
 interface BankTypeProps {
   bank: BankName; // Define possible types
+  isActive ?: boolean;
 }
 
-const BankType = ({ bank }: BankTypeProps) => {
+const BankType = ({ bank  , isActive }: BankTypeProps) => {
   const styles = StyleSheet.create({
     button: {
       flexDirection: "row",
@@ -17,11 +18,10 @@ const BankType = ({ bank }: BankTypeProps) => {
       paddingHorizontal: 16,
       paddingVertical: 12,
       backgroundColor: getBankTint(bank),
-      opacity: 0.7,
+      opacity: isActive ? 1 : 0.3,
     },
     iconContainer: {
       marginRight: 8,
-      backgroundColor: "white",
       padding: 4,
       borderRadius: 8,
     },

@@ -2,26 +2,27 @@ import {
   View,
   Text,
   StyleSheet,
-  Modal,
+  TextInput,
   TouchableOpacity,
-  TextInput
+  ScrollView
 } from 'react-native'
 import React from 'react'
-import TransactionType from '@/components/TransactionType'
 import BankType from '@/components/BankType'
-import { ThemedText } from '@/components/ThemedText'
-import { ThemedView } from '@/components/ThemedView'
-import ShowCategory from '@/components/ShowCategory'
-import { PaperProvider, Portal } from 'react-native-paper'
 import CategoryBottomSheet from '@/components/CategoryBottomSheet'
 import { CategotyComponentProps } from '@/components/CategotyComponent'
 import TagsContainer from '@/components/containers/TagsContainer'
-import TagsBottomSheet from '@/components/TagsBottomSheet'
-import { IconSymbol } from '@/components/ui/IconSymbol'
 import NotesComponent from '@/components/NotesComponent'
+import ShowCategory from '@/components/ShowCategory'
+import TagsBottomSheet from '@/components/TagsBottomSheet'
+import { ThemedText } from '@/components/ThemedText'
+import { ThemedView } from '@/components/ThemedView'
+import TransactionType from '@/components/TransactionType'
+import { PaperProvider } from 'react-native-paper'
 import Button from '@/components/ui/Button'
+import DateTimePIcker from '@/components/DateTimePIcker'
+import { BankName } from '@/constants/Banks'
 
-const transactionDetails = () => {
+const createTransaction = () => {
   const style = StyleSheet.create({
     amountContainer: {
       display: 'flex',
@@ -68,21 +69,17 @@ const transactionDetails = () => {
     }
   })
 
+  const [transactionType, setTransactionType] = React.useState('expense')
   const [visible, setVisible] = React.useState(false)
   const [isTagModalVisible, setIsTagModalVisible] = React.useState(false)
   const [categoryData, setCategoryData] =
     React.useState<CategotyComponentProps | null>(null)
-  const [tags, setTags] = React.useState<{ [key: string]: string }>({
-    1: 'groceries',
-    2: 'punetrip',
-    3: 'chai',
-    4: 'gharKharch',
-    5: 'Debt'
-  })
+  const [tags, setTags] = React.useState<{ [key: string]: string }>({})
   const [showError, setShowError] = React.useState<string | undefined>(
     undefined
   )
   const [notes, setNotes] = React.useState('')
+  const [selectedBank, setSelectedBank] = React.useState('CASH')
 
   const showModal = () => setVisible(true)
   const hideModal = () => setVisible(false)
@@ -127,20 +124,68 @@ const transactionDetails = () => {
     setNotes(notes)
   }
 
+  const handleTypeChange = (type: string) => {
+    setTransactionType(type)
+  }
+
+  const banks: BankName[] = [
+    'CASH',
+    'ICICI',
+    'ICICI',
+    'ICICI',
+    'ICICI',
+    'ICICI',
+    'ICICI',
+    'ICICI',
+    'ICICI',
+    'ICICI',
+    'ICICI'
+  ]
+
   return (
     <PaperProvider>
       <ThemedView style={{ padding: 20 }}>
         {/* Transaction Type */}
 
-        <TransactionType transactionType='expense' isActive={true}  handleTypeChange={()=>{}} />
+        <View
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'flex-start',
+            gap: 12
+          }}
+        >
+          <TransactionType
+            transactionType='expense'
+            handleTypeChange={handleTypeChange}
+            isActive={'expense' === transactionType}
+          />
+          <TransactionType
+            transactionType='income'
+            handleTypeChange={handleTypeChange}
+            isActive={'income' === transactionType}
+          />
+        </View>
 
         {/* Transaction Amount */}
 
         <View style={style.amountContainer}>
-          <ThemedText type='title' style={{ color: '#ddd', lineHeight: 42 }}>
-            ₹ 160
+          <ThemedText style={{ color: '#ddd', lineHeight: 42, fontSize: 32 }}>
+            ₹
           </ThemedText>
-          <BankType bank='ICICI' isActive={true} />
+          <TextInput
+            keyboardType='numeric'
+            style={{
+              marginLeft: 6,
+              padding: 5,
+              fontWeight: 600,
+              color: '#ddd',
+              flex: 1,
+              fontSize: 32
+            }}
+            placeholderTextColor='#7c7c7c80'
+            placeholder='Enter Amount'
+          />
         </View>
 
         {/* Transaction Date */}
@@ -148,14 +193,41 @@ const transactionDetails = () => {
         <View style={dateAndTimeCon.container}>
           <View style={dateAndTimeCon.row}>
             <Text style={dateAndTimeCon.label}>Date & Time</Text>
-            <Text style={dateAndTimeCon.value}>31 Oct, 6.23 PM</Text>
+            <DateTimePIcker />
           </View>
           <View style={dateAndTimeCon.separator} />
           <View style={dateAndTimeCon.row}>
             <Text style={dateAndTimeCon.label}>Paid to</Text>
-            <Text style={dateAndTimeCon.boldValue}>New Bharat Shopee</Text>
+            <TextInput
+              style={{
+                marginLeft: 6,
+                padding: 5,
+                fontWeight: 600,
+                color: '#ddd',
+                fontSize: 16
+              }}
+              placeholderTextColor='#7c7c7c80'
+              placeholder='Enter Name'
+            />
           </View>
         </View>
+
+        {/* Banks */}
+
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={{
+            display: 'flex',
+            flexDirection: 'row',
+            gap: 12,
+            marginVertical: 24
+          }}
+        >
+          {banks.map(bank => {
+            return <BankType bank={bank} isActive={bank === selectedBank} />
+          })}
+        </ScrollView>
 
         {/* Category */}
 
@@ -186,8 +258,6 @@ const transactionDetails = () => {
           }}
         >
           <Button content='Save' tint='#7E44E0' />
-          <Button content='Disable' tint='#90825A' />
-          <Button content='Delete' tint='#673A3A' />
         </View>
 
         {/* Category Modal */}
@@ -209,4 +279,4 @@ const transactionDetails = () => {
   )
 }
 
-export default transactionDetails
+export default createTransaction
