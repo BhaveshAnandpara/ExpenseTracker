@@ -1,4 +1,11 @@
-import { View, Text, StyleSheet, Modal } from 'react-native'
+import {
+  View,
+  Text,
+  StyleSheet,
+  Modal,
+  TouchableOpacity,
+  TextInput
+} from 'react-native'
 import React from 'react'
 import TransactionType from '@/components/TransactionType'
 import BankType from '@/components/BankType'
@@ -8,6 +15,11 @@ import ShowCategory from '@/components/ShowCategory'
 import { PaperProvider, Portal } from 'react-native-paper'
 import CategoryBottomSheet from '@/components/CategoryBottomSheet'
 import { CategotyComponentProps } from '@/components/CategotyComponent'
+import TagsContainer from '@/components/containers/TagsContainer'
+import TagsBottomSheet from '@/components/TagsBottomSheet'
+import { IconSymbol } from '@/components/ui/IconSymbol'
+import NotesComponent from '@/components/NotesComponent'
+import Button from '@/components/ui/Button'
 
 const transactionDetails = () => {
   const style = StyleSheet.create({
@@ -26,7 +38,8 @@ const transactionDetails = () => {
       paddingVertical: 10,
       paddingHorizontal: 15,
       borderRadius: 8,
-      marginTop: '10%'
+      marginTop: '10%',
+      marginBottom: 24
     },
     row: {
       flexDirection: 'row',
@@ -56,15 +69,62 @@ const transactionDetails = () => {
   })
 
   const [visible, setVisible] = React.useState(false)
-  const [categoryData, setCategoryData] = React.useState<CategotyComponentProps | null>(null)
+  const [isTagModalVisible, setIsTagModalVisible] = React.useState(false)
+  const [categoryData, setCategoryData] =
+    React.useState<CategotyComponentProps | null>(null)
+  const [tags, setTags] = React.useState<{ [key: string]: string }>({
+    1: 'groceries',
+    2: 'punetrip',
+    3: 'chai',
+    4: 'gharKharch',
+    5: 'Debt'
+  })
+  const [showError, setShowError] = React.useState<string | undefined>(
+    undefined
+  )
+  const [notes, setNotes] = React.useState('')
 
   const showModal = () => setVisible(true)
   const hideModal = () => setVisible(false)
+  const showTagModal = () => setIsTagModalVisible(true)
+  const hideTagModal = () => setIsTagModalVisible(false)
   const containerStyle = { backgroundColor: '#dddddd', padding: 20 }
 
   const selectCategory = (category: CategotyComponentProps) => {
     setCategoryData(category)
     hideModal()
+  }
+
+  const createNewTag = (tagName: string) => {
+    if (!Object.values(tags).includes(tagName)) {
+      let newKey = Object.keys(tags).length + 1
+
+      setTags(prevData => {
+        const updatedData = { ...prevData }
+        updatedData[newKey] = tagName
+        return updatedData
+      })
+      setShowError(undefined)
+      hideTagModal()
+    } else {
+      setShowError('The tag with same name already exists !')
+    }
+  }
+
+  const deleteTag = (tagId: string) => {
+    delete tags[tagId]
+
+    //  for faster update
+
+    setTags(prevData => {
+      const updatedData = { ...prevData }
+      delete updatedData[tagId] // Remove the key
+      return updatedData
+    })
+  }
+
+  const onSetNotes = (notes: string) => {
+    setNotes(notes)
   }
 
   return (
@@ -99,7 +159,31 @@ const transactionDetails = () => {
 
         {/* Category */}
 
-        <ShowCategory category={categoryData} showModal={showModal}  />
+        <ShowCategory category={categoryData} showModal={showModal} />
+
+        {/* Tags */}
+
+        <TagsContainer
+          tags={tags}
+          deleteTag={deleteTag}
+          showTagModal={showTagModal}
+        />
+
+        {/* Notes */}
+
+        <NotesComponent notes={notes} setNotes={onSetNotes} />
+
+
+        {/* Buttons */}
+
+        <View style={{ display : 'flex' , alignItems : 'center' , justifyContent : 'flex-start' , gap :12 , flexDirection : 'row' , marginTop : 24 }} >
+
+            <Button content='Save' tint='#7E44E0' />
+            <Button content='Disable' tint='#90825A' />
+            <Button content='Delete' tint='#673A3A' />
+
+        </View>
+
 
         {/* Category Modal */}
 
@@ -107,6 +191,13 @@ const transactionDetails = () => {
           visible={visible}
           _handleDismiss={hideModal}
           selectCategory={selectCategory}
+        />
+
+        <TagsBottomSheet
+          visible={isTagModalVisible}
+          _handleDismiss={hideTagModal}
+          createNewTag={createNewTag}
+          showError={showError}
         />
       </ThemedView>
     </PaperProvider>

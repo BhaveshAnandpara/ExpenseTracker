@@ -15,11 +15,12 @@ const ShowCategory = ({ category, showModal }: showCategoryProps) => {
     container: {
       flexDirection: 'row',
       alignItems: 'center',
-      backgroundColor: '#333', // Dark background
+      backgroundColor: '#7C7C7C33',
       paddingVertical: 12,
       paddingHorizontal: 15,
       borderRadius: 8,
-      width: '100%'
+      width: '100%',
+      marginVertical : 12
     },
     icon: {
       marginRight: 8 // Spacing between icon and text

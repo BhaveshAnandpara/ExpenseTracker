@@ -15,6 +15,8 @@ export type FeatherIconName =
   | 'arrow-up'
   | 'arrow-down'
   | 'edit-2'
+  | "plus"
+  | "clipboard"
 
 export function IconSymbol ({
   name,

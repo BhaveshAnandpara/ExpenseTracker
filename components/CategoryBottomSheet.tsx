@@ -156,7 +156,7 @@ const styles = StyleSheet.create({
     right: 0,
     justifyContent: 'flex-start',
     alignItems: 'center',
-    backgroundColor: '#494949',
+    backgroundColor: '#2F2F2F',
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
     paddingVertical: 23,
