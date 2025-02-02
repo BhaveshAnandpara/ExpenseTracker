@@ -4,7 +4,7 @@ import { CategotyComponentProps, CategotyComponent } from '../CategotyComponent'
 
 type CategoryContainerProps = {
   data: CategotyComponentProps[]
-  selectCategory: (category: CategotyComponentProps) => void
+  selectCategory: (category: CategotyComponentProps) => void | (()=>void);
 }
 
 const CategoryContainer = (props: CategoryContainerProps) => {

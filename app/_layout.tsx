@@ -44,6 +44,10 @@ export default function RootLayout() {
           name="createTransaction"
           options={{ title: "Create Transaction" }}
         />
+        <Stack.Screen
+          name="createGoal"
+          options={{ title: "Create Goal" }}
+        />
       </Stack>
       <StatusBar style="auto" />
     </ThemeProvider>
