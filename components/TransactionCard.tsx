@@ -1,8 +1,9 @@
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import React from "react";
 import { Feather } from "@expo/vector-icons";
 import { FeatherIconName } from "./ui/IconSymbol";
 import { ThemedText } from "./ThemedText";
+import { useRouter } from "expo-router";
 
 export type TransactionCardProps = {
   iconColor: string;
@@ -57,40 +58,45 @@ const TransactionCard = (props: TransactionCardProps) => {
     },
   });
 
+  const router = useRouter();
   return (
-    <View style={containerStyle.container}>
-      <View style={containerStyle.infoContainer}>
-        <View style={iconStyle.container}>
-          <Feather color={props.iconColor} size={24} name={props.image} />
-        </View>
+    <TouchableOpacity onPress={() => router.push("/transactionDetails?id=123") }>
+      <View style={containerStyle.container}>
+        <View style={containerStyle.infoContainer}>
+          <View style={iconStyle.container}>
+            <Feather color={props.iconColor} size={24} name={props.image} />
+          </View>
 
-        <View>
-          <ThemedText
-            style={{ color: "#DDDDDD", fontWeight: 600, fontSize: 18 }}
-          >
-            {props.title}
-          </ThemedText>
           <View>
-            {props.tags.map((tag, idx) => (
-              <ThemedText key={idx} style={{ fontWeight: 400, fontSize: 14 }}>
-                #{tag}
-              </ThemedText>
-            ))}
+            <ThemedText
+              style={{ color: "#DDDDDD", fontWeight: 600, fontSize: 18 }}
+            >
+              {props.title}
+            </ThemedText>
+            <View>
+              {props.tags.map((tag, idx) => (
+                <ThemedText key={idx} style={{ fontWeight: 400, fontSize: 14 }}>
+                  #{tag}
+                </ThemedText>
+              ))}
+            </View>
+          </View>
+        </View>
+        <View style={containerStyle.amountContainer}>
+          <View style={containerStyle.dateContainer}>
+            <ThemedText style={{ marginRight: 4 }}>{props.dateTime}</ThemedText>
+            <Feather color={"#808080"} size={24} name={props.transactionType} />
+          </View>
+          <View>
+            <ThemedText
+              style={{ fontSize: 18, fontWeight: 600, color: "#ddd" }}
+            >
+              ₹{props.amount}
+            </ThemedText>
           </View>
         </View>
       </View>
-      <View style={containerStyle.amountContainer}>
-        <View style={containerStyle.dateContainer}>
-          <ThemedText style={{ marginRight: 4 }}>{props.dateTime}</ThemedText>
-          <Feather color={"#808080"} size={24} name={props.transactionType} />
-        </View>
-        <View>
-          <ThemedText style={{ fontSize: 18, fontWeight: 600, color: "#ddd" }}>
-            ₹{props.amount}
-          </ThemedText>
-        </View>
-      </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 

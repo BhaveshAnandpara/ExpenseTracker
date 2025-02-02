@@ -175,7 +175,7 @@ export default function HomeScreen() {
       <View style={{ marginTop : "4%" }} >
         <ThemedText style={{ fontWeight : 600 }} > Expenses</ThemedText>
         <View>
-          <CategoryContainer data={expenseCategoryData} />
+          <CategoryContainer action={()=>{}} data={expenseCategoryData} />
         </View>
       </View>
 
@@ -184,7 +184,7 @@ export default function HomeScreen() {
       <View style={{ marginTop : "4%" }} >
         <ThemedText style={{ fontWeight : 600 }} > Income</ThemedText>
         <View>
-          <CategoryContainer data={incomeCategoryData} />
+          <CategoryContainer action={()=>{}} data={incomeCategoryData} />
         </View>
       </View>
 
