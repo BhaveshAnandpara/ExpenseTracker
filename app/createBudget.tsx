@@ -1,15 +1,17 @@
-import { View, Text, TextInput, StyleSheet } from 'react-native'
+import { View, Text, TextInput, StyleSheet, ScrollView } from 'react-native'
 import React, { useState } from 'react'
-import { ThemedText } from '@/components/ThemedText'
-import DateTimePIcker from '@/components/DateTimePIcker'
-import ParallaxScrollView from '@/components/ParallaxScrollView'
 import CategoryBottomSheet from '@/components/CategoryBottomSheet'
-import ShowCategory from '@/components/ShowCategory'
 import { CategotyComponentProps } from '@/components/CategotyComponent'
+import DateTimePIcker from '@/components/DateTimePIcker'
+import ShowCategory from '@/components/ShowCategory'
+import { ThemedText } from '@/components/ThemedText'
 import { ThemedView } from '@/components/ThemedView'
 import Button from '@/components/ui/Button'
+import FilterContainer from '@/components/containers/FilterContainer'
+import { FilterComponentProps } from '@/components/FilterComponent'
+import moment from 'moment-timezone'
 
-const createGoal = () => {
+const createBudget = () => {
   const style = StyleSheet.create({
     amountContainer: {
       display: 'flex',
@@ -57,7 +59,8 @@ const createGoal = () => {
 
   const [visible, setVisible] = React.useState(false)
 
-  const [goalName, setGoalName] = useState('')
+  const [budgetName, setBudgetName] = useState('')
+  const [deadline, setDeadline] = useState(moment.tz('Asia/Kolkata').toDate())
   const [categoryData, setCategoryData] =
     React.useState<CategotyComponentProps | null>(null)
 
@@ -69,10 +72,17 @@ const createGoal = () => {
     hideModal()
   }
 
+  const filterData: FilterComponentProps[] = [
+    { id: 0, days: undefined, text: 'Next Salary' },
+    { id: 1, days: null, text: 'Select Date' },
+    { id: 2, days: 7, text: '7 Days' },
+    { id: 3, days: 15, text: '15 Days' },
+    { id: 4, days: 30, text: '30 Days' }
+  ]
+
   return (
     <ThemedView style={{ padding: 20 }}>
       {/* Goal Amount */}
-
       <View style={style.amountContainer}>
         <ThemedText style={{ color: '#ddd', lineHeight: 42, fontSize: 32 }}>
           ₹
@@ -89,22 +99,19 @@ const createGoal = () => {
           }}
           placeholderTextColor='#7c7c7c80'
           placeholder='Enter Amount'
-          onChangeText={setGoalName}
+          onChangeText={setBudgetName}
         />
       </View>
-
       {/* Deadline */}
-
-      <View style={dateAndTimeCon.container}>
-        <View style={dateAndTimeCon.row}>
-          <Text style={dateAndTimeCon.label}>Deadline</Text>
-          <DateTimePIcker />
-        </View>
-        <View style={dateAndTimeCon.separator} />
-      </View>
+      <ScrollView
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        style={{ marginTop: '8%', padding: 12 }}
+      >
+        <FilterContainer data={filterData} onChangeDate={setDeadline} />
+      </ScrollView>
 
       {/* Goal Name */}
-
       <TextInput
         style={{
           borderRadius: 6,
@@ -118,13 +125,9 @@ const createGoal = () => {
         placeholderTextColor='#7c7c7c80'
         placeholder='Goal Name'
       />
-
       {/* Category */}
-
       <ShowCategory category={categoryData} showModal={showModal} />
-
       {/* Save */}
-
       <View
         style={{
           display: 'flex',
@@ -137,9 +140,7 @@ const createGoal = () => {
       >
         <Button content='Save' tint='#7E44E0' />
       </View>
-
       {/* Category Modal */}
-
       <CategoryBottomSheet
         visible={visible}
         _handleDismiss={hideModal}
@@ -149,4 +150,4 @@ const createGoal = () => {
   )
 }
 
-export default createGoal
+export default createBudget

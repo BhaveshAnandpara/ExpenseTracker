@@ -1,9 +1,12 @@
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import React, { useEffect, useState } from "react";
 import FilterComponent, { FilterComponentProps } from "../FilterComponent";
+import moment from "moment-timezone";
+import DateTimePIcker from "../DateTimePIcker";
 
 type FilterContainerProps = {
   data: FilterComponentProps[];
+  onChangeDate ?: React.Dispatch<React.SetStateAction<Date>>;
 };
 
 const FilterContainer = (props: FilterContainerProps) => {
@@ -17,8 +20,21 @@ const FilterContainer = (props: FilterContainerProps) => {
     },
   });
 
-  const onPress = (newActiveIdx: number) => {
+  const onPress = (newActiveIdx: number , days : number | undefined | null ) => {
     setActiveIdx(newActiveIdx);
+
+    let deadline = moment.tz('Asia/Kolkata');
+    console.log(days);
+
+    //next Salary
+    if( days === undefined) {
+        // Next Date of Salary
+    }
+    else{
+      deadline.add(days ,'days');
+    }
+
+    props.onChangeDate && props.onChangeDate(deadline.toDate())
   };
 
   return (
@@ -30,6 +46,7 @@ const FilterContainer = (props: FilterContainerProps) => {
             id={data.id}
             active={activeIdx}
             text={data.text}
+            days={data.days}
           />
         </TouchableOpacity>
       ))}

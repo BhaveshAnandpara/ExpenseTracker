@@ -48,6 +48,10 @@ export default function RootLayout() {
           name="createGoal"
           options={{ title: "Create Goal" }}
         />
+        <Stack.Screen
+          name="createBudget"
+          options={{ title: "Create Budget" }}
+        />
       </Stack>
       <StatusBar style="auto" />
     </ThemeProvider>

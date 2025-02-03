@@ -3,22 +3,11 @@ import React, { useState } from 'react'
 import RNDateTimePicker from '@react-native-community/datetimepicker'
 import moment from 'moment-timezone'
 
-// export const dateTimeFormat = (date: Date) => {
-//   const today = date
+type DateTimePIckerProps = {
+  handleChangeDateTime?: (date: moment.Moment) => void
+}
 
-//   // Extract day, month, and year
-//   let day = today.getDate()
-//   let month = today.getMonth() + 1
-//   let year = today.getFullYear()
-//   let hour = today.getHours()
-//   let min = today.getMinutes()
-
-//   // Format the date as dd/mm/yyyy
-//   const formattedDate = `${day}/${month}/${year} ${hour}:${min}`
-//   return formattedDate
-// }
-
-const DateTimePIcker = () => {
+const DateTimePIcker = (props : DateTimePIckerProps) => {
   const [dateAndTime, setDateAndTime] = useState(moment().tz('Asia/Kolkata'))
 
   const [DatePicker, setDatePicker] = useState(false)
@@ -52,6 +41,7 @@ const DateTimePIcker = () => {
 
     setDateAndTime(dateAndTime)
     setTimePicker(false)
+    props.handleChangeDateTime && props.handleChangeDateTime(dateAndTime)
   }
 
   return (
