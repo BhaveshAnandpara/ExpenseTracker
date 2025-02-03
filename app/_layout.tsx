@@ -52,6 +52,10 @@ export default function RootLayout() {
           name="createBudget"
           options={{ title: "Create Budget" }}
         />
+        <Stack.Screen
+          name="createCategory"
+          options={{ title: "Create Category" }}
+        />
       </Stack>
       <StatusBar style="auto" />
     </ThemeProvider>

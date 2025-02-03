@@ -1,4 +1,10 @@
-import { Image, StyleSheet, Platform, View } from 'react-native'
+import {
+  Image,
+  StyleSheet,
+  Platform,
+  View,
+  TouchableOpacity
+} from 'react-native'
 
 import { HelloWave } from '@/components/HelloWave'
 import ParallaxScrollView from '@/components/ParallaxScrollView'
@@ -9,6 +15,7 @@ import { GoalCardProps } from '@/components/GoalCard'
 import Header from '@/components/Header'
 import CategoryContainer from '@/components/containers/CategoryContainer'
 import { CategotyComponentProps } from '@/components/CategotyComponent'
+import { router } from 'expo-router'
 
 export default function HomeScreen () {
   const setNewCtaegory = () => {
@@ -165,9 +172,9 @@ export default function HomeScreen () {
       {/* Set new categories button */}
 
       <ThemedView>
-        <ThemedText onPress={setNewCtaegory} style={buttonStyle.primary}>
-          Add New Category
-        </ThemedText>
+        <TouchableOpacity onPress={() => router.push('/createCategory')}>
+          <ThemedText style={buttonStyle.primary}>Add New Category</ThemedText>
+        </TouchableOpacity>
       </ThemedView>
 
       {/* Expense */}
